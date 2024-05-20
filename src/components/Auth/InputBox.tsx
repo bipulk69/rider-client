@@ -12,7 +12,7 @@ interface InputBoxProps {
     | 'default'
     | 'email-address'
     | 'numeric'
-    | 'phone-pad'
+    | 'number-pad'
     | 'ascii-capable'
     | 'numbers-and-punctuation'
     | 'url'
@@ -43,11 +43,12 @@ interface InputBoxProps {
   editable?: boolean;
   textAlignVertical?: 'auto' | 'top' | 'bottom' | 'center';
   style?: any;
-  lableStyle: any;
+  lableStyle?: any;
   lableVisible: boolean;
   error?: boolean;
   lable: string;
   name: string;
+  setValue: (value: string) => void;
 }
 
 const InputBox: React.FC<InputBoxProps> = props => {
@@ -65,24 +66,20 @@ const InputBox: React.FC<InputBoxProps> = props => {
     <View>
       <View style={[{marginVertical: 10}, props.style]}>
         <View>
-          {props.lableVisible == false ? null : (
+          {props.lableVisible ? (
             <Text style={[styles.lable, props.lableStyle]}>{props.lable}</Text>
-          )}
+          ) : null}
         </View>
         <TextInput
           value={props.value}
-          underlineColorAndroid="transparent"
-          multiline={props.multiline}
           placeholder={props.placeholder}
           secureTextEntry={props.secureTextEntry}
           maxLength={props.maxLength}
           keyboardType={props.keyboardType}
-          numberOfLines={props.numberOfLines}
           autoComplete={props.autoComplete}
-          editable={props.editable}
-          textAlignVertical={props.textAlignVertical}
           onFocus={handleFocus}
           onBlur={handleBlur}
+          onChangeText={props.setValue}
           style={[
             props.style,
             styles.inputField,
@@ -119,5 +116,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     color: theme.colors.primary_text,
     paddingHorizontal: 10,
+    paddingVertical: 10,
   },
 });

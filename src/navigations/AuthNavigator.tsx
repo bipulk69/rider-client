@@ -6,6 +6,7 @@ import Verification from '../screens/authentication/Verification';
 import Password from '../screens/authentication/Password';
 import SetPassword from '../screens/authentication/SetPassword';
 import SelfDeclaration from '../screens/authentication/SelfDeclaration';
+import Signup from '../screens/authentication/Signup';
 
 const AuthStack = createNativeStackNavigator();
 
@@ -17,25 +18,26 @@ const AuthNavigator = () => {
         component={Login}
         options={{headerShown: false}}
       />
-
       <AuthStack.Screen
         name="Verification"
         component={Verification}
         options={{headerShown: false}}
       />
-
       <AuthStack.Screen
         name="Passowrd"
         component={Password}
         options={{headerShown: false}}
       />
-
+      <AuthStack.Screen
+        name="Signup"
+        component={Signup}
+        options={{headerShown: false}}
+      />
       <AuthStack.Screen
         name="SetPassword"
         component={SetPassword}
         options={{headerShown: false}}
       />
-
       <AuthStack.Screen
         name="SelfDeclaration"
         component={SelfDeclaration}

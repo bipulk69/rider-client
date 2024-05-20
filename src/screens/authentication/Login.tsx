@@ -1,27 +1,39 @@
-import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableHighlight,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import theme from '../../constants/theme';
 import InputBox from '../../components/Auth/InputBox';
+import ContinueButton from '../../components/Auth/ContinueButton';
 
 const Login = () => {
   const [loading, setLoading] = useState(true);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const navigation = useNavigation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1000);
   });
 
-  // if (loading) {
-  //   return (
-  //     <View>
-  //       <Image source={require('../../assets/loading.png')} />
-  //     </View>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <View>
+        <Image source={require('../../assets/loading.png')} />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <View style={{marginHorizontal: 20}}>
@@ -29,12 +41,32 @@ const Login = () => {
         <Text style={styles.helperText}>Hi there, nice to see you.</Text>
 
         <InputBox
-          name="Mobile_no"
-          keyboardType={'number-pad'}
+          name="Username"
+          keyboardType={'default'}
           lableVisible={false}
-          lable={'Mobile Number'}
-          placeholder="eg 9999 - 999 - 999"
+          lable={'Username'}
+          placeholder="Username"
+          value={username}
+          setValue={setUsername}
         />
+
+        <InputBox
+          name="Passowrd"
+          keyboardType={'default'}
+          lableVisible={false}
+          lable={'Password'}
+          placeholder="Password"
+          value={password}
+          setValue={setPassword}
+        />
+
+        <ContinueButton navigateTo="SelfDeclaration" />
+
+        <TouchableHighlight
+          style={styles.forgotBtn}
+          onPress={() => navigation.navigate('Signup')}>
+          <Text style={styles.forgotText}>Forgot Passowrd ?</Text>
+        </TouchableHighlight>
       </View>
     </View>
   );
@@ -56,5 +88,15 @@ const styles = StyleSheet.create({
   helperText: {
     fontSize: 16,
     color: '#666666',
+    marginTop: 10,
+  },
+  forgotBtn: {
+    alignItems: 'center',
+    marginTop: 15,
+  },
+  forgotText: {
+    color: '#65Ba0D',
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
   },
 });
